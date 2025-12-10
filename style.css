@@ -34,10 +34,6 @@ h1 {
   margin-bottom: 6rem;
 }
 
-img {
-  height: 1.5rem;
-}
-
 details {
   width: 40%;
 }
@@ -45,10 +41,9 @@ details {
 summary {
   font-family: Lato-Bold;
   font-size: 1.6rem;
-  /* background-color: rgba(120, 99, 254, 0); */
   border: 0.1rem solid rgb(119, 99, 254);
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.7rem;
   box-shadow: 0.3rem 0.3rem 0.4rem rgb(184, 184, 184);
   transition: 0.2s all;
 }
@@ -65,16 +60,18 @@ summary:active {
   transform: translateY(0.1rem);
 }
 
-ul {
-  padding-left: 4rem;
-}
-
-li,
 label {
-  padding: 1rem 0 1rem 3rem;
   font-family: Lato-Regular;
   font-size: 1.6rem;
   transition: 0.2s all;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+
+label::before {
+  content: ">";
+  margin-right: 1.3rem;
+  font-weight: bold;
 }
 
 input {
@@ -86,14 +83,17 @@ input:checked + label {
   color: white;
 }
 
-label:hover {
-  background-color: rgb(119, 99, 254);
-  color: white;
-  cursor: pointer;
+.vocabulare {
+  padding: 1rem 0 1rem 3rem;
 }
 
-.vocabulare {
-margin-bottom: 2rem;
+.vocabulare:hover {
+  color: rgb(119, 99, 254);
+  border-bottom: 1px solid rgb(119, 99, 254);
+}
+
+.vocabulare:hover > label::before {
+  transform: scale(110%);
 }
 
 @media (max-width: 900px) {
@@ -108,7 +108,7 @@ margin-bottom: 2rem;
     padding: 3rem;
   }
   label {
-    padding: 1rem 0 1rem 1rem;
+    padding: 0.8rem 1rem;
     font-size: 1.6rem;
   }
 }
