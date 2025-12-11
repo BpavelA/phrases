@@ -30,8 +30,12 @@ body {
 h1 {
   font-family: Lato-Light;
   font-size: 3.2rem;
+  letter-spacing: 0.4rem;
   text-align: center;
   margin-bottom: 6rem;
+  padding: 1rem;
+  border: 0.1rem solid rgb(119, 99, 254);
+  box-shadow: 0.3rem 0.3rem 0.4rem rgb(184, 184, 184);
 }
 
 details {
@@ -69,7 +73,7 @@ label {
 }
 
 label::before {
-  content: ">";
+  content: "-";
   margin-right: 1.3rem;
   font-weight: bold;
 }
@@ -83,6 +87,10 @@ input:checked + label {
   color: white;
 }
 
+input:checked + label::before {
+  content: "+";
+}
+
 .vocabulare {
   padding: 1rem 0 1rem 3rem;
 }
@@ -92,7 +100,7 @@ input:checked + label {
   border-bottom: 1px solid rgb(119, 99, 254);
 }
 
-.vocabulare:hover > label::before {
+label:hover > label::before {
   transform: scale(110%);
 }
 
@@ -107,8 +115,12 @@ input:checked + label {
     font-size: 1.8rem;
     padding: 3rem;
   }
+  .vocabulare {
+    padding: 0.3rem 0 0.3rem 3rem;
+  }
   label {
-    padding: 0.8rem 1rem;
+    padding: 0.4rem 0.5rem;
     font-size: 1.6rem;
+    line-height: 175%;
   }
 }
