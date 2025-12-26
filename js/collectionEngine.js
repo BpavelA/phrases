@@ -40,6 +40,7 @@ async function loadDataFromFiles() {
   collection.forEach(group => {
    let details = document.createElement('details');
    let summary = document.createElement('summary');
+   let icon = document.createElement('i');
    h1.after(details);
    details.prepend(summary);
    summary.innerHTML = group[0];
@@ -47,10 +48,14 @@ async function loadDataFromFiles() {
    group.shift();
    group.reverse();
    summary.id = id;
+   summary.prepend(icon);
+   icon.classList.add('bi', 'bi-rocket-takeoff');
    summary.addEventListener(
     "click", () => {
      soundHover.currentTime = 0;
      summarySound.play();
+     icon.classList.toggle('bi-rocket-takeoff');
+     icon.classList.toggle("bi-rocket-takeoff-fill");
     }
    )
 

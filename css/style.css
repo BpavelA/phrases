@@ -55,7 +55,12 @@ summary {
 }
 
 summary::marker {
+  content: none;
+}
+
+i {
   color: rgb(119, 99, 254);
+  margin-right: 10px;
 }
 
 summary:hover {
