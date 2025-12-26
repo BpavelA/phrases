@@ -1,63 +1,82 @@
-// Перебор массивов
+// Загрузка из текстовых файлов - Работает!
 
 'use strict';
 
-const meinungen = ["Ich stehe auf dem Standpunkt, dass...",
- "Meines Erachtens ist das ...",
- "Für mich steht fest, dass ...",
- "Ich vertrete die Ansicht, dass ...",
- "Ich bin der festen Übezeugung, dass ..."];
+// Настраиваем звуки
 
-const zustimmung = ["Der Meinung bin ich auch.",
- "Das ist auch meine Meinung.",
- "Ich bin ganz deiner Meinung.",
- "Das stimmt.",
- "Ja, genau.",
- "Das ist richtig.",
- "Das ist eine gute Idee.",
- "Es ist mit Sicherheit so, dass...",
- "Das sehe ich auch so.",
- "Da hast du völlig recht.",
- "Da kann ich dir nur völlig recht geben.",
- "Dem kann ich mich nur anschließen",
- "Ich vertrete auch die Position, dass ...",
- "Dem kann ich zustimmen, weil ...",
- "Das kann ich nur bestätigen.",
- "Das kann ich mir gut vorstellen.",
- "Ich bin der gleichen Meinung.",
- "Die Sichtweise würde ich unterstützen."];
+const soundHover = new Audio("sounds/hover_vocabulare.mp3");
+const summarySound = new Audio("sounds/summary_sound.mp3");
+soundHover.preload = "auto";
+summarySound.preload = "auto";
 
-const h1 = document.querySelector('h1');
-const collection = [meinungen, zustimmung];
+// Создаем пустой массив
 
-collection.forEach(group => {
- let details = document.createElement('details');
- let summary = document.createElement('summary');
- h1.after(details);
- details.prepend(summary);
- summary.innerHTML = group[0];
- let id = group[0].split(' ');
- summary.id = id;
+const collection = [];
 
- group.forEach(phrase => {
-  let index = group.indexOf(phrase);
-  let div = document.createElement('div');
-  let input = document.createElement('input');
-  let label = document.createElement('label');
-  summary.after(div);
-  div.prepend(input);
-  input.after(label);
-  label.innerHTML = phrase;
-  div.classList.add('vocabulare');
-  input.type = 'checkbox';
-  input.id = `${id} + ${index}`;
-  label.setAttribute('for', `${id} + ${index}`);
- });
+// Загружаем данные из txt файлов
 
-});
+async function loadDataFromFiles() {
+ try {
 
+  for (let i = 1; i <= 5; i++) {
+   let response = await fetch(`${i}.txt`);
 
+   if (!response.ok) {
+    throw new Error(`Ошибка HTTP: ${response.status}`);
+   }
 
+   let src = await response.text();
+   let data = src.split('\n');
+   collection.push(data);
+  }
+
+  collection.reverse();
+  console.log(collection);
+
+  // Строим структуры страницы
+
+  const h1 = document.querySelector('h1');
+
+  collection.forEach(group => {
+   let details = document.createElement('details');
+   let summary = document.createElement('summary');
+   h1.after(details);
+   details.prepend(summary);
+   summary.innerHTML = group[0];
+   let id = group[0].split(' ');
+   group.shift();
+   group.reverse();
+   summary.id = id;
+   summary.addEventListener(
+    "click", () => {
+     soundHover.currentTime = 0;
+     summarySound.play();
+    }
+   )
+
+   group.forEach(phrase => {
+    let index = group.indexOf(phrase);
+    let div = document.createElement('div');
+    let input = document.createElement('input');
+    let label = document.createElement('label');
+    summary.after(div);
+    div.prepend(input);
+    input.after(label);
+    label.innerHTML = phrase;
+    div.classList.add('vocabulare');
+    input.type = 'checkbox';
+    input.id = `${id} ${index}`;
+    label.setAttribute('for', `${id} ${index}`);
+   });
+
+  });
+
+ } catch (error) {
+  console.error('Ошибка:', error);
+ }
+};
+
+window.addEventListener('DOMContentLoaded', loadDataFromFiles);
 
 
 
