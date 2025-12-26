@@ -18,7 +18,7 @@ const collection = [];
 async function loadDataFromFiles() {
  try {
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 10; i++) {
    let response = await fetch(`${i}.txt`);
 
    if (!response.ok) {
