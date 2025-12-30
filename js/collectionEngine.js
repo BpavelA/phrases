@@ -6,8 +6,22 @@
 
 const soundHover = new Audio("sounds/hover_vocabulare.mp3");
 const summarySound = new Audio("sounds/summary_sound.mp3");
+
 soundHover.preload = "auto";
 summarySound.preload = "auto";
+
+// Настраиваем панель настроек
+
+const h1 = document.querySelector('h1');
+const settingsPanel = document.querySelector('.settings-panel');
+
+// Настраиваем футер
+
+const date = new Date();
+const footer = document.querySelector('footer');
+let year = document.createElement('p');
+footer.lastChild.after(year);
+year.innerHTML = `${date.getFullYear()}`;
 
 // Создаем пустой массив
 
@@ -35,7 +49,7 @@ async function loadDataFromFiles() {
 
   // Строим структуры страницы
 
-  const h1 = document.querySelector('h1');
+  // const h1 = document.querySelector('h1');
 
   collection.forEach(group => {
    let details = document.createElement('details');
@@ -80,6 +94,14 @@ async function loadDataFromFiles() {
   console.error('Ошибка:', error);
  }
 };
+
+function openSettings() {
+ h1.addEventListener("click", () => { settingsPanel.style.display = "block"; })
+}
+
+function closeSettings() {
+ settingsPanel.addEventListener("click", () => { settingsPanel.style.display = "none"; })
+}
 
 window.addEventListener('DOMContentLoaded', loadDataFromFiles);
 
