@@ -95,13 +95,9 @@ async function loadDataFromFiles() {
  }
 };
 
-function openSettings() {
- h1.addEventListener("click", () => { settingsPanel.style.display = "block"; })
-}
+h1.addEventListener("click", () => { settingsPanel.style.display = "block"; })
 
-function closeSettings() {
- settingsPanel.addEventListener("click", () => { settingsPanel.style.display = "none"; })
-}
+settingsPanel.addEventListener("click", () => { settingsPanel.style.display = "none"; })
 
 window.addEventListener('DOMContentLoaded', loadDataFromFiles);
 
